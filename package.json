@@ -1,0 +1,46 @@
+{
+  "name": "socket.io-nats-adapter",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mickl/socket.io-nats-adapter.git"
+  },
+  "files": [
+    "dist/"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "tsc && nyc mocha test/index.js",
+    "test2": "npm run format:check && tsc && nyc mocha test/index.js",
+    "format:check": "prettier --parser typescript --check 'lib/**/*.ts' 'test/**/*.js'",
+    "format:fix": "prettier --parser typescript --write 'lib/**/*.ts' 'test/**/*.js'",
+    "prepack": "tsc",
+    "docker-start": "docker-compose up -d",
+    "docker-stop": "docker-compose stop"
+  },
+  "dependencies": {
+    "debug": "~4.1.0",
+    "socket.io-adapter": "~2.0.0",
+    "uid2": "0.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "expect.js": "0.3.1",
+    "mocha": "^3.4.2",
+    "nats": "^2.0.0-220",
+    "nyc": "^15.1.0",
+    "prettier": "^2.1.2",
+    "socket.io": "^3.0.1",
+    "socket.io-client": "^3.0.1",
+    "typescript": "^4.0.5"
+  },
+  "peerDependencies": {
+    "nats": "^1.4.12"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}
