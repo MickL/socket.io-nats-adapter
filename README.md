@@ -1,13 +1,25 @@
 # socket.io-adapter-nats
 
-**-- This is a work in progress --**
+Socket.IO NATS adapter for:
 
-Socket.IO NATS adapter for [Socket.IO](https://github.com/socketio/socket.io) 2.x and 3.x and [NATS.js](https://github.com/nats-io/nats.js/) 2.x
+- [Socket.IO](https://github.com/socketio/socket.io) 3.x, but should also work with 2.x
+- [NATS.js](https://github.com/nats-io/nats.js/) 1.4.x, not compatible to 2.x
+
+## Status
+
+**This is a work in progress**
+
+- ✅ Emit
+- ❌ Rooms
+- ❌ Namespace
+- ✅ Local flag
+- ❌ .sockets() - Gets a list of sockets by sid
+- ❌ .socketRooms() - Gets the list of rooms a given socket has joined.
 
 ## How to use
 
 ```bash
-yarn add socket.io nats@rc socket.io-nats-adapter
+yarn add socket.io nats socket.io-nats-adapter
 ```
 
 ```ts
@@ -15,13 +27,14 @@ import { Server } from 'socket.io';
 import { connect } from 'nats';
 import { createNatsAdapter } from 'socket.io-nats-adapter';
 
-const io         = new Server(3000);
-const connection = await connect('localhost');
+const io     = new Server(3000);
+const client = await connect('localhost');
 io.adapter(createNatsAdapter(connect));
 ```
 
 ## Contribution
-If you have any issues or feature requests please create a pull request. I will not have time to maintain this project.
+
+This is a community driven project. If you have any issues or feature requests please create a pull request.
 
 ## License
 
