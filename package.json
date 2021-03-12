@@ -13,9 +13,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "tsc && nyc ts-mocha test/index.ts",
-    "format:check": "prettier --parser typescript --check 'lib/**/*.ts' 'test/**/*.js'",
-    "format:fix": "prettier --parser typescript --write 'lib/**/*.ts' 'test/**/*.js'",
+    "test": "npm run format:check && tsc && nyc ts-mocha test/index.ts --exit",
+    "format:check": "prettier --check 'lib/**/*.ts' 'test/**/*.ts'",
+    "format:fix": "prettier --write 'lib/**/*.ts' 'test/**/*.ts'",
     "prepack": "tsc",
     "docker-start": "docker-compose up -d",
     "docker-stop": "docker-compose stop"

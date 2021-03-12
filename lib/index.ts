@@ -1,18 +1,12 @@
-import uid2 = require("uid2");
+import * as uid2 from "uid2";
 import { Adapter, BroadcastOptions } from "socket.io-adapter";
 import { Client } from "nats";
+import * as _debug from "debug";
 
-const debug = require("debug")("socket.io-nats-adapter");
+const debug = _debug("socket.io-nats-adapter");
 
 export interface NatsAdapterOptions {
-  /**
-   * @default socket.io
-   */
   key: string;
-  /**
-   * after this timeout the adapter will stop waiting from responses to request
-   * @default 5000
-   */
   requestsTimeout: number;
 }
 
@@ -109,8 +103,23 @@ export class NatsAdapter extends Adapter {
     super.broadcast(packet, opts);
   }
 
-  onMessage(msg: string | Dto) {
-    const dto = typeof msg === 'string' ? JSON.parse(msg) as Dto : msg;
+  onMessage(msg: string | Dto, reply: any, subject: string) {
+    console.log(subject);
+
+    // TODO
+    // channel = channel.toString();
+    //
+    // const channelMatches = channel.startsWith(this.channel);
+    // if (!channelMatches) {
+    //   return debug("ignore different channel");
+    // }
+    //
+    // const room = channel.slice(this.channel.length, -1);
+    // if (room !== "" && !this.rooms.has(room)) {
+    //   return debug("ignore unknown room %s", room);
+    // }
+
+    const dto = typeof msg === "string" ? (JSON.parse(msg) as Dto) : msg;
 
     if (dto.fromUid === this.uid) {
       return debug("Ignore own message");
@@ -127,5 +136,3 @@ export class NatsAdapter extends Adapter {
     super.broadcast(dto.packet, dto.opts);
   }
 }
-
-module.exports = createNatsAdapter;
