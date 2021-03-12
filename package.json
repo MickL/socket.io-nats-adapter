@@ -13,6 +13,7 @@
     "format:check": "prettier --check 'lib/**/*.ts' 'test/**/*.ts'",
     "format:fix": "prettier --write 'lib/**/*.ts' 'test/**/*.ts'",
     "prepack": "tsc",
+    "watch": "tsc && tsc --watch",
     "docker-start": "docker-compose up -d",
     "docker-stop": "docker-compose stop"
   },

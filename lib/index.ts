@@ -101,7 +101,10 @@ export class NatsAdapter extends Adapter {
   onMessage(msg: string | NatsAdapterOptionsDto, reply: any, subject: string) {
     debug("onMessage for subject '%s'", subject);
 
-    const dto = typeof msg === "string" ? (JSON.parse(msg) as NatsAdapterOptionsDto) : msg;
+    const dto =
+      typeof msg === "string"
+        ? (JSON.parse(msg) as NatsAdapterOptionsDto)
+        : msg;
 
     if (dto.fromUid === this.uid) {
       return debug("Ignore own message");
