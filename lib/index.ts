@@ -55,8 +55,6 @@ export class NatsAdapter extends Adapter {
         const prefix = opts.key || "socketIO";
 
         this.subject = prefix + "." + nsp.name;
-        // this.requestChannel  = prefix + "-request#" + this.nsp.name + "#";
-        // this.responseChannel = prefix + "-response#" + this.nsp.name + "#";
 
         const onError = (err) => {
             if (err) {
@@ -65,19 +63,6 @@ export class NatsAdapter extends Adapter {
         };
 
         this.client.subscribe(this.subject, this.onMessage.bind(this));
-        this.client.subscribe(this.subject + '.*', this.onMessage.bind(this));
-
-        // this.subClient.psubscribe(this.channel + "*", onError);
-        // this.subClient.on("pmessageBuffer", this.onmessage.bind(this));
-        //
-        // this.subClient.subscribe(
-        //     [this.requestChannel, this.responseChannel],
-        //     onError
-        // );
-        // this.subClient.on("messageBuffer", this.onrequest.bind(this));
-        //
-        // this.pubClient.on("error", onError);
-        // this.subClient.on("error", onError);
     }
 
     broadcast(packet: any, opts: BroadcastOptions): void {
@@ -100,16 +85,8 @@ export class NatsAdapter extends Adapter {
 
             const msg = JSON.stringify(dto);
 
-            if (!opts.rooms || opts.rooms.size === 0) {
-                debug("Publishing message to subject '%s'", subject);
-                this.client.publish(subject, msg);
-            } else {
-                opts.rooms.forEach(room => {
-                    const subjectForRoom = subject + '.' + room;
-                    debug("Publishing message to subject '%s'", subjectForRoom);
-                    this.client.publish(subjectForRoom, msg);
-                })
-            }
+            debug("Publishing message to subject '%s'", subject);
+            this.client.publish(subject, msg);
         }
 
         super.broadcast(packet, opts);

@@ -7,17 +7,17 @@ Socket.IO NATS adapter for:
 
 ## Status
 
-I have used [socket.io-redis-adapter](https://github.com/socketio/socket.io-redis) as a reference but modernized most of the code (e.g. using async and promises and wrote test's in TypeScript, too).
-
 - ✅ Emit
 - ✅ Room(s)
 - ✅ Namespace
 - ✅ Local flag
-- Get all rooms across several nodes
-- Get all sockets in the same room across several nodes
-
+- ❌ Error-handling
+- ❌ Get all rooms across several nodes
+- ❌ Get all sockets in the same room across several nodes
 
 If you have any issues or feature requests please create a pull request.
+
+This project has used [socket.io-redis-adapter](https://github.com/socketio/socket.io-redis) as a reference but modernized most of the code (e.g. using async and promises and wrote test's in TypeScript, too).
 
 ## How to use
 
