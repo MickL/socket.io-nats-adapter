@@ -31,7 +31,7 @@ import { connect } from 'nats';
 import { createAdapter } from 'socket.io-nats-adapter';
 
 const io     = new Server(3000);
-const client = await connect('localhost');
+const client = connect('localhost');
 io.adapter(createAdapter(connect));
 ```
 
