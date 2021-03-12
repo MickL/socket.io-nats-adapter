@@ -1,6 +1,6 @@
 {
-  "name": "socket.io-nats-adapter",
-  "version": "0.0.9",
+  "name": "@mickl/socket.io-nats-adapter",
+  "version": "0.0.1",
   "description": "Socket.io 3.x/4.x adapter for NATS",
   "license": "MIT",
   "files": [
