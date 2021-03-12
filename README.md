@@ -7,7 +7,7 @@ Socket.IO NATS adapter for:
 
 ## Status
 
-**This is a work in progress**
+**This is a work in progress**. I have used [socket.io-redis-adapter](https://github.com/socketio/socket.io-redis) as a reference but modernized most of the code (e.g. using async and promises and wrote test's in TypeScript, too).
 
 - ✅ Emit
 - ❌ Rooms
