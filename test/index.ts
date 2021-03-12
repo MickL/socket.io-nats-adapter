@@ -6,7 +6,7 @@ import { Socket } from "socket.io-client/build/socket";
 import { AddressInfo } from "net";
 import * as expect from "expect.js";
 import { connect } from "nats";
-import { createNatsAdapter } from "../lib";
+import { createAdapter } from "../lib";
 
 const natsUrl                    = "localhost";
 const connectOptions: ClientOpts = {
@@ -178,7 +178,7 @@ async function create(
         const ioServer   = new Server(httpServer);
 
         // @ts-ignore
-        ioServer.adapter(createNatsAdapter(natsClient, options));
+        ioServer.adapter(createAdapter(natsClient, options));
 
         httpServer.listen((a) => {
             const port = (<AddressInfo>httpServer.address()).port;

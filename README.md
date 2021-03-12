@@ -28,11 +28,11 @@ yarn add socket.io nats socket.io-nats-adapter
 ```ts
 import { Server } from 'socket.io';
 import { connect } from 'nats';
-import { createNatsAdapter } from 'socket.io-nats-adapter';
+import { createAdapter } from 'socket.io-nats-adapter';
 
 const io     = new Server(3000);
 const client = await connect('localhost');
-io.adapter(createNatsAdapter(connect));
+io.adapter(createAdapter(connect));
 ```
 
 ## License

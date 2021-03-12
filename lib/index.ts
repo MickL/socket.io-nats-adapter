@@ -23,7 +23,7 @@ export interface Dto {
 /**
  * Returns a NATS Adapter function
  */
-export const createNatsAdapter = (
+export const createAdapter = (
     client: Client,
     opts?: Partial<NatsAdapterOptions>
 ) => {
