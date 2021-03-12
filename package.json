@@ -13,7 +13,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "npm run format:check && tsc && nyc ts-mocha test/index.ts --exit",
+    "test": "tsc && nyc ts-mocha test/index.ts --exit",
     "format:check": "prettier --check 'lib/**/*.ts' 'test/**/*.ts'",
     "format:fix": "prettier --write 'lib/**/*.ts' 'test/**/*.ts'",
     "prepack": "tsc",

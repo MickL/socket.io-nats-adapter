@@ -7,14 +7,17 @@ Socket.IO NATS adapter for:
 
 ## Status
 
-**This is a work in progress**. I have used [socket.io-redis-adapter](https://github.com/socketio/socket.io-redis) as a reference but modernized most of the code (e.g. using async and promises and wrote test's in TypeScript, too).
+I have used [socket.io-redis-adapter](https://github.com/socketio/socket.io-redis) as a reference but modernized most of the code (e.g. using async and promises and wrote test's in TypeScript, too).
 
 - ✅ Emit
-- ❌ Rooms
-- ❌ Namespace
+- ✅ Room(s)
+- ✅ Namespace
 - ✅ Local flag
-- ❌ .sockets() - Gets a list of sockets by sid
-- ❌ .socketRooms() - Gets the list of rooms a given socket has joined.
+- Get all rooms across several nodes
+- Get all sockets in the same room across several nodes
+
+
+If you have any issues or feature requests please create a pull request.
 
 ## How to use
 
@@ -31,10 +34,6 @@ const io     = new Server(3000);
 const client = await connect('localhost');
 io.adapter(createNatsAdapter(connect));
 ```
-
-## Contribution
-
-This is a community driven project. If you have any issues or feature requests please create a pull request.
 
 ## License
 
