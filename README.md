@@ -11,7 +11,6 @@ Socket.IO NATS adapter for:
 - ✅ Room(s)
 - ✅ Namespace
 - ✅ Local flag
-- ❌ Error-handling
 - ❌ Get all rooms across several nodes
 - ❌ Get all sockets in the same room across several nodes
 
@@ -22,13 +21,13 @@ This project has used [socket.io-redis-adapter](https://github.com/socketio/sock
 ## How to use
 
 ```bash
-yarn add socket.io nats socket.io-nats-adapter
+yarn add socket.io nats @mickl/socket.io-nats-adapter
 ```
 
 ```ts
 import { Server } from 'socket.io';
 import { connect } from 'nats';
-import { createAdapter } from 'socket.io-nats-adapter';
+import { createAdapter } from '@mickl/socket.io-nats-adapter';
 
 const io     = new Server(3000);
 const client = connect('localhost');
