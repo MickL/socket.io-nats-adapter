@@ -22,6 +22,8 @@ export interface Dto {
 
 /**
  * Returns a NATS Adapter function
+ *
+ * TODO: Add return type https://github.com/socketio/socket.io/issues/3796
  */
 export const createAdapter = (
     client: Client,
