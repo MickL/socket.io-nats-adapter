@@ -3,17 +3,13 @@
   "version": "0.0.6",
   "description": "Socket.io 3.x/4.x adapter for NATS",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mickl/socket.io-nats-adapter.git"
-  },
   "files": [
     "dist/"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "tsc && nyc ts-mocha test/index.ts --exit",
+    "test": "npm run format:check && tsc && nyc ts-mocha test/index.ts --exit",
     "format:check": "prettier --check 'lib/**/*.ts' 'test/**/*.ts'",
     "format:fix": "prettier --write 'lib/**/*.ts' 'test/**/*.ts'",
     "prepack": "tsc",
