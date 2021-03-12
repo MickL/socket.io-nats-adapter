@@ -8,12 +8,15 @@ import {
 } from "socket.io-adapter";
 import { Client } from "nats";
 import * as _debug from "debug";
+import { Namespace } from "socket.io";
 
 const debug = _debug("socket.io-nats-adapter");
 
+export const SUBJECT_KEY = "socketIO";
+
 export interface NatsAdapterOptions {
-  key: string;
-  requestsTimeout: number;
+  subjectKey?: string;
+  requestsTimeout?: number;
 }
 
 export interface Dto {
@@ -31,10 +34,7 @@ export interface Dto {
  *
  * TODO: Add return type https://github.com/socketio/socket.io/issues/3796
  */
-export const createAdapter = (
-  client: Client,
-  opts?: Partial<NatsAdapterOptions>
-) => {
+export const createAdapter = (client: Client, opts?: NatsAdapterOptions) => {
   return function (nsp: any) {
     return new NatsAdapter(nsp, client, opts);
   };
@@ -52,7 +52,7 @@ export class NatsAdapter extends Adapter {
    * Adapter constructor
    */
   constructor(
-    public readonly nsp: any,
+    public readonly nsp: Namespace,
     private client: Client,
     private opts: Partial<NatsAdapterOptions> = {}
   ) {
@@ -60,7 +60,7 @@ export class NatsAdapter extends Adapter {
 
     this.requestsTimeout = opts.requestsTimeout || 5000;
 
-    const prefix = opts.key || "socketIO";
+    const prefix = opts.subjectKey || SUBJECT_KEY;
 
     this.subject = prefix + "." + nsp.name;
 
