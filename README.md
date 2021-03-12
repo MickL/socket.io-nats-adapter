@@ -2,7 +2,7 @@
 
 Socket.IO NATS adapter for:
 
-- [Socket.IO](https://github.com/socketio/socket.io) 3.x, but should also work with 2.x
+- [Socket.IO](https://github.com/socketio/socket.io) 4.x, but should also work with 2.x and 3.x
 - [NATS.js](https://github.com/nats-io/nats.js/) 1.4.x, not compatible to 2.x
 
 ## Status

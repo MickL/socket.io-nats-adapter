@@ -13,7 +13,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "npm run format:check && tsc && nyc mocha test/index.js",
+    "test": "tsc && nyc ts-mocha test/index.ts",
     "format:check": "prettier --parser typescript --check 'lib/**/*.ts' 'test/**/*.js'",
     "format:fix": "prettier --parser typescript --write 'lib/**/*.ts' 'test/**/*.js'",
     "prepack": "tsc",
@@ -21,20 +21,23 @@
     "docker-stop": "docker-compose stop"
   },
   "dependencies": {
-    "debug": "~4.1.0",
-    "socket.io-adapter": "~2.0.0",
+    "debug": "~4.3.1",
+    "socket.io-adapter": "^2.2.0",
     "uid2": "0.0.3"
   },
   "devDependencies": {
-    "@types/node": "^14.14.7",
-    "expect.js": "0.3.1",
-    "mocha": "^3.4.2",
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^14.14.33",
+    "expect.js": "^0.3.1",
+    "mocha": "^8.3.2",
     "nats": "^1.4.12",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
-    "socket.io": "^3.0.1",
-    "socket.io-client": "^3.0.1",
-    "typescript": "^4.0.5"
+    "socket.io": "^4.0.0",
+    "socket.io-client": "^4.0.0",
+    "ts-mocha": "^8.0.0",
+    "typescript": "^4.2.3"
   },
   "peerDependencies": {
     "nats": "^1.4.12"

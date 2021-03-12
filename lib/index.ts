@@ -109,11 +109,19 @@ export class NatsAdapter extends Adapter {
     super.broadcast(packet, opts);
   }
 
-  onMessage(msg: string) {
-    const dto = JSON.parse(msg) as Dto;
+  onMessage(msg: string | Dto) {
+    const dto = typeof msg === 'string' ? JSON.parse(msg) as Dto : msg;
 
     if (dto.fromUid === this.uid) {
       return debug("Ignore own message");
+    }
+
+    if (dto.packet && dto.packet.nsp === undefined) {
+      dto.packet.nsp = "/";
+    }
+
+    if (!dto.packet || dto.packet.nsp !== this.nsp.name) {
+      return debug("Ignore different namespace");
     }
 
     super.broadcast(dto.packet, dto.opts);
