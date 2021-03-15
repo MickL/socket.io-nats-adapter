@@ -19,7 +19,7 @@ export interface NatsAdapterOptions {
   requestsTimeout?: number;
 }
 
-export interface NatsAdapterOptionsDto {
+export interface NatsAdapterDto {
   fromUid: string;
   packet: any;
   opts: {
@@ -79,7 +79,7 @@ export class NatsAdapter extends Adapter {
     const onlyLocal = opts && opts.flags && opts.flags.local;
 
     if (!onlyLocal) {
-      const dto: NatsAdapterOptionsDto = {
+      const dto: NatsAdapterDto = {
         fromUid: this.uid,
         packet,
         opts: {
@@ -98,13 +98,11 @@ export class NatsAdapter extends Adapter {
     super.broadcast(packet, opts);
   }
 
-  onMessage(msg: string | NatsAdapterOptionsDto, reply: any, subject: string) {
+  onMessage(msg: string | NatsAdapterDto, reply: any, subject: string) {
     debug("onMessage for subject '%s'", subject);
 
     const dto =
-      typeof msg === "string"
-        ? (JSON.parse(msg) as NatsAdapterOptionsDto)
-        : msg;
+      typeof msg === "string" ? (JSON.parse(msg) as NatsAdapterDto) : msg;
 
     if (dto.fromUid === this.uid) {
       return debug("Ignore own message");
