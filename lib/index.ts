@@ -45,12 +45,9 @@ export const createAdapter = (
 
 export class NatsAdapter extends Adapter {
   private jc = JSONCodec<NatsAdapterDto>();
-  private uid = uid2(6);
   private requestsTimeout: number;
   private subject: string;
-  // private readonly requestChannel: string;
-  // private readonly responseChannel: string;
-  // private requests: Map<string, Request> = new Map();
+  private uid = uid2(6);
 
   /**
    * Adapter constructor
