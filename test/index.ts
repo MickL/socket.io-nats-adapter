@@ -1,18 +1,13 @@
-import { Client, ClientOpts } from "nats";
 import { createServer } from "http";
 import { Namespace, Server } from "socket.io";
 import { io } from "socket.io-client";
 import { Socket } from "socket.io-client/build/socket";
 import { AddressInfo } from "net";
 import * as expect from "expect.js";
-import { connect } from "nats";
-import { createAdapter } from "../lib";
+import { connect, ConnectionOptions, NatsConnection } from "nats";
+import { createAdapter, NatsAdapterOptions } from "../lib";
 
-const natsUrl = "localhost";
-const connectOptions: ClientOpts = {
-  // json: true,
-  // preserveBuffers: true,
-};
+const connectOptions: ConnectionOptions = {};
 
 let namespace1, namespace2, namespace3;
 let client1, client2, client3;
@@ -20,8 +15,8 @@ let socket1, socket2, socket3;
 
 describe("socket.io-nats-adapter", () => {
   beforeEach(async () => {
-    const natsClient = connect(natsUrl, connectOptions);
-    await init(natsClient);
+    const connection = await connect();
+    await init(connection);
   });
   afterEach(cleanup);
 
@@ -157,8 +152,8 @@ describe("socket.io-nats-adapter", () => {
 });
 
 async function create(
-  natsClient: Client,
-  options?: ClientOpts,
+  natsClient: NatsConnection,
+  options?: NatsAdapterOptions,
   nsp = "/"
 ): Promise<{ namespace: Namespace; client: Socket; socket: any }> {
   return new Promise((resolve) => {
@@ -182,10 +177,10 @@ async function create(
   });
 }
 
-async function init(natsClient: Client, options?: ClientOpts) {
-  const created1 = await create(natsClient, options);
-  const created2 = await create(natsClient, options);
-  const created3 = await create(natsClient, options);
+async function init(connection: NatsConnection) {
+  const created1 = await create(connection);
+  const created2 = await create(connection);
+  const created3 = await create(connection);
 
   namespace1 = created1.namespace;
   namespace2 = created2.namespace;

@@ -6,7 +6,7 @@ import {
   Room,
   SocketId,
 } from "socket.io-adapter";
-import { Client } from "nats";
+import { NatsConnection, JSONCodec } from "nats";
 import * as _debug from "debug";
 import { Namespace } from "socket.io";
 
@@ -34,13 +34,17 @@ export interface NatsAdapterDto {
  *
  * TODO: Add return type https://github.com/socketio/socket.io/issues/3796
  */
-export const createAdapter = (client: Client, opts?: NatsAdapterOptions) => {
+export const createAdapter = (
+  client: NatsConnection,
+  opts?: NatsAdapterOptions
+) => {
   return function (nsp: any) {
     return new NatsAdapter(nsp, client, opts);
   };
 };
 
 export class NatsAdapter extends Adapter {
+  private jc = JSONCodec<NatsAdapterDto>();
   private uid = uid2(6);
   private requestsTimeout: number;
   private subject: string;
@@ -53,7 +57,7 @@ export class NatsAdapter extends Adapter {
    */
   constructor(
     public readonly nsp: Namespace,
-    private client: Client,
+    private client: NatsConnection,
     private opts: Partial<NatsAdapterOptions> = {}
   ) {
     super(nsp);
@@ -70,7 +74,11 @@ export class NatsAdapter extends Adapter {
       }
     };
 
-    this.client.subscribe(this.subject, this.onMessage.bind(this));
+    this.client.subscribe(this.subject, {
+      callback: (err, msg) => {
+        this.onMessage(msg.data, msg.subject);
+      },
+    });
   }
 
   broadcast(packet: any, opts: BroadcastOptions): void {
@@ -89,20 +97,17 @@ export class NatsAdapter extends Adapter {
         },
       };
 
-      const msg = JSON.stringify(dto);
-
       debug("Publishing message to subject '%s'", this.subject);
-      this.client.publish(this.subject, msg);
+      this.client.publish(this.subject, this.jc.encode(dto));
     }
 
     super.broadcast(packet, opts);
   }
 
-  onMessage(msg: string | NatsAdapterDto, reply: any, subject: string) {
+  onMessage(msg: Uint8Array, subject: string) {
     debug("onMessage for subject '%s'", subject);
 
-    const dto =
-      typeof msg === "string" ? (JSON.parse(msg) as NatsAdapterDto) : msg;
+    const dto = this.jc.decode(msg);
 
     if (dto.fromUid === this.uid) {
       return debug("Ignore own message");
