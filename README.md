@@ -5,6 +5,8 @@ Socket.IO NATS adapter for:
 - [Socket.IO](https://github.com/socketio/socket.io) 4.x, but should also work with 2.x and 3.x
 - [NATS.js](https://github.com/nats-io/nats.js/) 1.4.x, not compatible to 2.x
 
+For just emitting there is also [socket.io-nats-emitter](https://github.com/MickL/socket.io-nats-emitter)
+
 ## Status
 
 - ✅ Emit
@@ -21,7 +23,7 @@ This project has used [socket.io-redis-adapter](https://github.com/socketio/sock
 ## How to use
 
 ```bash
-yarn add socket.io nats @mickl/socket.io-nats-adapter
+yarn add socket.io nats @mickl/socket.io-nats-adapter@^1.0.0
 ```
 
 ```ts
